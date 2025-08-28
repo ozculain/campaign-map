@@ -11,43 +11,280 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #1a1a1a;
+            display: flex;
+        }
+        
+        #sidebar {
+            width: 300px;
+            height: 100vh;
+            background: rgba(20, 20, 20, 0.95);
+            overflow-y: auto;
+            border-right: 2px solid #444;
+            z-index: 1000;
         }
         
         #map {
+            flex: 1;
             height: 100vh;
-            width: 100%;
         }
         
-        .legend {
+        .search-container {
+            padding: 15px;
+            background: #2a2a2a;
+            border-bottom: 2px solid #444;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 8px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .search-container input::placeholder {
+            color: #999;
+        }
+        
+        .category-list {
+            padding: 10px;
+        }
+        
+        .category {
+            margin-bottom: 5px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background: #2a2a2a;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            user-select: none;
+            background: #333;
+            border-radius: 3px;
+        }
+        
+        .category-header:hover {
+            background: #3a3a3a;
+        }
+        
+        .category-header input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .category-name {
+            flex: 1;
+            color: #e0e0e0;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .category-arrow {
+            color: #999;
+            transition: transform 0.2s;
+        }
+        
+        .category.expanded .category-arrow {
+            transform: rotate(90deg);
+        }
+        
+        .category-items {
+            display: none;
+            padding: 5px 5px 5px 25px;
+            background: #252525;
+        }
+        
+        .category.expanded .category-items {
+            display: block;
+        }
+        
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            color: #ccc;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .item:hover {
+            background: #333;
+        }
+        
+        .item input[type="checkbox"] {
+            margin-right: 6px;
+        }
+        
+        .item-name {
+            flex: 1;
+        }
+        
+        .item.hidden {
+            display: none;
+        }
+        
+        .category.hidden {
+            display: none;
+        }
+        
+        .controls {
+            padding: 10px;
+            border-bottom: 2px solid #444;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .controls button {
+            flex: 1;
+            padding: 6px;
+            background: #444;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .controls button:hover {
+            background: #555;
+        }
+        
+        .basemap-control {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(20, 20, 20, 0.95);
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #444;
+        }
+        
+        .basemap-control select {
+            padding: 5px;
+            background: #333;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 3px;
+        }
+        
+        .distance-calculator {
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+            z-index: 1000;
             background: rgba(20, 20, 20, 0.95);
             padding: 15px;
             border-radius: 8px;
-            color: #e0e0e0;
-            font-size: 12px;
-            line-height: 18px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             border: 1px solid #444;
-            max-width: 220px;
+            color: #e0e0e0;
+            width: 250px;
         }
         
-        .legend h3 {
-            margin: 0 0 8px 0;
+        .distance-calculator h4 {
+            margin: 0 0 10px 0;
             color: #f0f0f0;
-            font-size: 14px;
-            border-bottom: 2px solid #666;
-            padding-bottom: 4px;
+            border-bottom: 1px solid #666;
+            padding-bottom: 5px;
+            font-size: 13px;
         }
         
-        .legend-item {
+        .distance-calculator button {
+            width: 100%;
+            margin: 5px 0;
+            padding: 6px;
+            background: #444;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .distance-calculator button:hover {
+            background: #555;
+        }
+        
+        .distance-calculator button.active {
+            background: #4169e1;
+        }
+        
+        .distance-result {
+            margin-top: 10px;
+            padding: 8px;
+            background: #333;
+            border-radius: 3px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .distance-points {
+            margin: 5px 0;
+            padding: 5px;
+            background: #2a2a2a;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+        
+        .emoji-marker {
+            font-size: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.35);
+            border: 2px solid rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
-            margin-bottom: 4px;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
         
-        .legend-symbol {
-            width: 20px;
-            margin-right: 6px;
-            text-align: center;
+        .marker-label {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            border-radius: 3px;
+            padding: 2px 5px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            margin-left: 35px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .emoji-with-label {
+            display: flex;
+            align-items: center;
+        }
+        
+        .controls {
+            padding: 10px;
+            border-bottom: 2px solid #444;
+        }
+        
+        .controls button {
+            padding: 6px;
+            background: #444;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 2px;
+        }
+        
+        .controls button:hover {
+            background: #555;
         }
         
         .custom-popup {
@@ -87,11 +324,6 @@
             color: #4169e1;
         }
         
-        .popup-type {
-            color: #008080;
-            font-weight: bold;
-        }
-        
         .leaflet-container {
             background: #1a1a1a;
         }
@@ -112,129 +344,22 @@
             fill: #228b22;
             fill-opacity: 0.1;
         }
-        
-        .layer-control-buttons {
-            position: absolute;
-            top: 10px;
-            right: 320px;
-            z-index: 1000;
-            background: rgba(20, 20, 20, 0.95);
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #444;
-        }
-        
-        .layer-control-buttons button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            background: #444;
-            color: #fff;
-            border: 1px solid #666;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        
-        .layer-control-buttons button:hover {
-            background: #555;
-        }
-        
-        .basemap-control {
-            position: absolute;
-            top: 55px;
-            right: 320px;
-            z-index: 1000;
-            background: rgba(20, 20, 20, 0.95);
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #444;
-        }
-        
-        .basemap-control select {
-            padding: 5px;
-            background: #333;
-            color: #fff;
-            border: 1px solid #666;
-            border-radius: 3px;
-        }
-        
-        .distance-calculator {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 1000;
-            background: rgba(20, 20, 20, 0.95);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #444;
-            color: #e0e0e0;
-            width: 250px;
-        }
-        
-        .distance-calculator h4 {
-            margin: 0 0 10px 0;
-            color: #f0f0f0;
-            border-bottom: 1px solid #666;
-            padding-bottom: 5px;
-        }
-        
-        .distance-calculator button {
-            width: 100%;
-            margin: 5px 0;
-            padding: 8px;
-            background: #444;
-            color: #fff;
-            border: 1px solid #666;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        
-        .distance-calculator button:hover {
-            background: #555;
-        }
-        
-        .distance-calculator button.active {
-            background: #4169e1;
-        }
-        
-        .distance-result {
-            margin-top: 10px;
-            padding: 10px;
-            background: #333;
-            border-radius: 3px;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        
-        .distance-points {
-            margin: 5px 0;
-            padding: 5px;
-            background: #2a2a2a;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-        
-        .emoji-marker {
-            font-size: 20px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            background: white;
-            border: 2px solid black;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        }
     </style>
 </head>
 <body>
-    <div id="map"></div>
-    
-    <div class="layer-control-buttons">
-        <button id="select-all">Select All</button>
-        <button id="deselect-all">Deselect All</button>
+    <div id="sidebar">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search locations...">
+        </div>
+        <div class="controls">
+            <button id="select-all">Select All</button>
+            <button id="deselect-all">Clear All</button>
+            <button id="toggle-labels">Show Labels</button>
+        </div>
+        <div id="category-list" class="category-list"></div>
     </div>
+    
+    <div id="map"></div>
     
     <div class="basemap-control">
         <select id="basemap-select">
@@ -258,7 +383,7 @@
     
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Initialize map centered on Birmingham
+        // Initialize map
         const map = L.map('map', {
             center: [52.4862, -1.8904],
             zoom: 11,
@@ -274,6 +399,11 @@
         let fromMarker = null;
         let toMarker = null;
         let pathLine = null;
+        
+        // Store all locations and categories
+        const categories = {};
+        const allMarkers = [];
+        let showLabels = false;
         
         // Define base layers
         const baseLayers = {
@@ -311,42 +441,90 @@
         const eastShift = 0.004;
         
         // Define custom emoji icons
-        const createEmojiIcon = (emoji, size = 24) => {
+        const createEmojiIcon = (emoji, label = '', size = 30) => {
+            const html = showLabels && label ? 
+                `<div class="emoji-with-label">
+                    <div class="emoji-marker">${emoji}</div>
+                    <div class="marker-label">${label}</div>
+                </div>` :
+                `<div class="emoji-marker">${emoji}</div>`;
+            
+            const iconSize = showLabels && label ? [120, 30] : [size, size];
+            const iconAnchor = showLabels && label ? [15, 15] : [size/2, size/2];
+            
             return L.divIcon({
-                html: `<div class="emoji-marker">${emoji}</div>`,
-                iconSize: [size, size],
-                iconAnchor: [size/2, size/2],
+                html: html,
+                iconSize: iconSize,
+                iconAnchor: iconAnchor,
                 popupAnchor: [0, -size/2],
                 className: 'emoji-icon'
             });
         };
         
-        const birminghamBuildingIcon = createEmojiIcon('🏛️');
-        const settlementIcon = createEmojiIcon('🏘️', 20);
-        const regionalTownIcon = createEmojiIcon('🏰', 22);
-        const majorCityIcon = createEmojiIcon('🏙️', 26);
-        const havenIcon = createEmojiIcon('🛡️', 22);
-        const religiousIcon = createEmojiIcon('⛪', 20);
-        const faeIcon = createEmojiIcon('🧚', 20);
-        const infrastructureIcon = createEmojiIcon('⚙️', 18);
-        const poiIcon = createEmojiIcon('📍', 18);
-        const forestPoiIcon = createEmojiIcon('🌲', 20);
+        const icons = {
+            church: createEmojiIcon('⛪'),
+            building: createEmojiIcon('🏛️'),
+            manor: createEmojiIcon('🏰'),
+            inn: createEmojiIcon('🍺'),
+            forge: createEmojiIcon('⚒️'),
+            settlement: createEmojiIcon('🏘️'),
+            town: createEmojiIcon('🏰'),
+            city: createEmojiIcon('🏙️', 32),
+            haven: createEmojiIcon('🛡️'),
+            fae: createEmojiIcon('🧚'),
+            infrastructure: createEmojiIcon('⚙️'),
+            poi: createEmojiIcon('📍'),
+            forest: createEmojiIcon('🌲')
+        };
         
-        // Layer groups
-        const covenantLayer = L.layerGroup();
-        const birminghamBuildingsLayer = L.layerGroup();
-        const havensLayer = L.layerGroup();
-        const religiousLayer = L.layerGroup();
-        const faeLayer = L.layerGroup();
-        const infrastructureLayer = L.layerGroup();
-        const poisLayer = L.layerGroup();
-        const forestPoisLayer = L.layerGroup();
-        const settlementsLayer = L.layerGroup();
-        const regionalLayer = L.layerGroup();
-        const majorCitiesLayer = L.layerGroup();
-        const forestLayer = L.layerGroup();
+        // Initialize categories
+        function initCategory(name, emoji) {
+            if (!categories[name]) {
+                categories[name] = {
+                    name: name,
+                    emoji: emoji,
+                    items: [],
+                    layer: L.layerGroup().addTo(map)
+                };
+            }
+            return categories[name];
+        }
         
-        // Extended covenant points to include Gunnar's Barrow
+        // Add location to category
+        function addLocation(category, location, iconEmoji) {
+            const icon = createEmojiIcon(iconEmoji);
+            const marker = L.marker([location.lat, location.lng], {icon: icon})
+                .bindPopup(`<div class="custom-popup"><h4>${location.name}</h4>${location.detail ? `<div class="popup-detail">${location.detail}</div>` : ''}${location.souls ? `<div class="popup-souls">Population: ${location.souls} souls</div>` : ''}${location.time ? `<div class="popup-distance">${location.time}</div>` : ''}</div>`);
+            
+            marker.addTo(category.layer);
+            
+            const item = {
+                name: location.name,
+                marker: marker,
+                location: location,
+                emoji: iconEmoji,
+                visible: true
+            };
+            
+            category.items.push(item);
+            allMarkers.push({...item, category: category.name});
+            
+            return marker;
+        }
+        
+        // Function to update all marker icons based on label state
+        function updateMarkerLabels() {
+            Object.values(categories).forEach(category => {
+                category.items.forEach(item => {
+                    if (item.marker && item.emoji) {
+                        const newIcon = createEmojiIcon(item.emoji, item.name);
+                        item.marker.setIcon(newIcon);
+                    }
+                });
+            });
+        }
+        
+        // Setup Covenant
         const covenantPoints = [
             {lat: 52.499, lng: -1.884},
             {lat: 52.471, lng: -1.877},
@@ -357,7 +535,6 @@
             {lat: 52.525, lng: -1.880}
         ];
         
-        // Draw Covenant boundary
         const covenantRadius = 2011.68;
         let boundaryPoints = [];
         covenantPoints.forEach(center => {
@@ -393,171 +570,122 @@
             }
         }
         
+        const specialLayers = initCategory('Special Layers', '🗺️');
         const covenantBoundary = convexHull(boundaryPoints);
-        L.polygon(covenantBoundary, {
-            className: 'covenant-boundary'
-        }).bindPopup('<div class="custom-popup"><h4>The Covenant Boundary</h4><div class="popup-detail">Supernatural protection extends throughout this area</div></div>')
-          .addTo(covenantLayer);
+        const covenantPolygon = L.polygon(covenantBoundary, {className: 'covenant-boundary'})
+            .bindPopup('<div class="custom-popup"><h4>The Covenant Boundary</h4><div class="popup-detail">Supernatural protection extends throughout this area</div></div>')
+            .addTo(specialLayers.layer);
+        specialLayers.items.push({name: 'Covenant Boundary', marker: covenantPolygon, visible: true});
         
-        // Forest of Arden
-        const ardenBounds = [
-            [52.65, -2.65],
-            [52.65, -1.48],
-            [51.90, -1.48],
-            [51.90, -2.65]
-        ];
-        
-        L.rectangle(ardenBounds, {
-            color: '#228b22',
-            weight: 2,
-            opacity: 0.6,
-            fillColor: '#228b22',
-            fillOpacity: 0.1,
-            className: 'forest-arden'
-        }).bindPopup('<div class="custom-popup"><h4>Forest of Arden</h4><div class="popup-detail">Ancient woodland spanning the heart of England</div><div class="popup-type">Gunnar\'s Domain</div></div>')
-          .addTo(forestLayer);
+        const ardenBounds = [[52.65, -2.65], [52.65, -1.48], [51.90, -1.48], [51.90, -2.65]];
+        const forestPolygon = L.rectangle(ardenBounds, {
+            color: '#228b22', weight: 2, opacity: 0.6, fillColor: '#228b22', fillOpacity: 0.1, className: 'forest-arden'
+        }).bindPopup('<div class="custom-popup"><h4>Forest of Arden</h4><div class="popup-detail">Ancient woodland spanning the heart of England</div></div>')
+          .addTo(specialLayers.layer);
+        specialLayers.items.push({name: 'Forest of Arden', marker: forestPolygon, visible: true});
         
         // Birmingham Buildings
-        const birminghamBuildings = [
-            {name: "St. Martin's Church", lat: 52.4770, lng: -1.8976 + eastShift, detail: "Parish church"},
-            {name: "Bull Ring Market", lat: 52.4768, lng: -1.8974 + eastShift, detail: "Triangular market space"},
-            {name: "De Birmingham Manor", lat: 52.479, lng: -1.900 + eastShift, detail: "Moated manor complex on Moat Lane"},
-            {name: "Guild of the Holy Cross Hall", lat: 52.4785, lng: -1.8945 + eastShift, detail: "Guild meeting hall"},
-            {name: "Market Cross", lat: 52.4768, lng: -1.8975 + eastShift, detail: "Town center"},
-            {name: "Stocks & Pillory", lat: 52.4767, lng: -1.8973 + eastShift, detail: "Justice and punishment"},
-            {name: "The Shambles", lat: 52.4775, lng: -1.8970 + eastShift, detail: "Butchers' quarter"},
-            {name: "The Old Crown", lat: 52.476, lng: -1.892 + eastShift, detail: "Tavern in Deritend/Digbeth"},
-            {name: "Silver Swan Inn", lat: 52.478, lng: -1.894 + eastShift, detail: "Moor Street inn"},
-            {name: "Master Woolmonger's House", lat: 52.478, lng: -1.895 + eastShift, detail: "Wealthy merchant residence"},
-            {name: "Master John Smith's Forge", lat: 52.475, lng: -1.895 + eastShift, detail: "Digbeth smithy"},
-            {name: "Master Wilhelm's Silver Workshop", lat: 52.476, lng: -1.896 + eastShift, detail: "Digbeth workshop"},
-            {name: "Thomas Ironwright's Smithy", lat: 52.475, lng: -1.897 + eastShift, detail: "New Street area"}
-        ];
-        
-        birminghamBuildings.forEach(loc => {
-            L.marker([loc.lat, loc.lng], {icon: birminghamBuildingIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${loc.name}</h4><div class="popup-detail">${loc.detail}</div></div>`)
-                .addTo(birminghamBuildingsLayer);
-        });
+        const birminghamCat = initCategory('Birmingham Buildings', '🏛️');
+        [
+            {name: "St. Martin's Church", lat: 52.4770, lng: -1.8976 + eastShift, detail: "Parish church", emoji: '⛪'},
+            {name: "St. Thomas's Priory", lat: 52.482, lng: -1.895, detail: "House of Augustinian canons", emoji: '⛪'},
+            {name: "Bull Ring Market", lat: 52.4768, lng: -1.8974 + eastShift, detail: "Triangular market space", emoji: '🏛️'},
+            {name: "De Birmingham Manor", lat: 52.479, lng: -1.900 + eastShift, detail: "Moated manor complex", emoji: '🏰'},
+            {name: "Guild of the Holy Cross Hall", lat: 52.4785, lng: -1.8945 + eastShift, detail: "Guild meeting hall", emoji: '🏛️'},
+            {name: "Market Cross", lat: 52.4768, lng: -1.8975 + eastShift, detail: "Town center", emoji: '🏛️'},
+            {name: "Stocks & Pillory", lat: 52.4767, lng: -1.8973 + eastShift, detail: "Justice and punishment", emoji: '🏛️'},
+            {name: "The Shambles", lat: 52.4775, lng: -1.8970 + eastShift, detail: "Butchers' quarter", emoji: '🏛️'},
+            {name: "The Old Crown", lat: 52.476, lng: -1.892 + eastShift, detail: "Tavern in Deritend", emoji: '🍺'},
+            {name: "Silver Swan Inn", lat: 52.478, lng: -1.894 + eastShift, detail: "Moor Street inn", emoji: '🍺'},
+            {name: "Master Woolmonger's House", lat: 52.478, lng: -1.895 + eastShift, detail: "Wealthy merchant residence", emoji: '🏛️'},
+            {name: "Master John Smith's Forge", lat: 52.475, lng: -1.895 + eastShift, detail: "Digbeth smithy", emoji: '⚒️'},
+            {name: "Master Wilhelm's Silver Workshop", lat: 52.476, lng: -1.896 + eastShift, detail: "Digbeth workshop", emoji: '⚒️'},
+            {name: "Thomas Ironwright's Smithy", lat: 52.475, lng: -1.897 + eastShift, detail: "New Street area", emoji: '⚒️'}
+        ].forEach(loc => addLocation(birminghamCat, loc, loc.emoji));
         
         // Character Havens
-        const havens = [
-            {name: "Gunnar's Barrow", lat: 52.520, lng: -1.880, detail: "Ancient burial mound, 3 miles north in Arden", time: "20 min to town"},
-            {name: "Elizabeth's Tower", lat: 52.4815, lng: -1.9015 + eastShift, detail: "Within De Birmingham Manor complex", time: "5 min to Bull Ring"},
-            {name: "Marcus's Laboratory", lat: 52.478, lng: -1.895 + eastShift, detail: "Secret haven beneath Woolmonger's house", time: "3 min to Bull Ring"},
+        const havensCat = initCategory('Character Havens', '🛡️');
+        [
+            {name: "Gunnar's Barrow", lat: 52.520, lng: -1.880, detail: "Ancient burial mound, 3 miles north", time: "20 min to town"},
+            {name: "Elizabeth's Tower", lat: 52.4815, lng: -1.9015 + eastShift, detail: "Within De Birmingham Manor", time: "5 min to Bull Ring"},
+            {name: "Marcus's Laboratory", lat: 52.478, lng: -1.895 + eastShift, detail: "Secret beneath Woolmonger's", time: "3 min to Bull Ring"},
             {name: "Lucian's Crypt", lat: 52.4770, lng: -1.8976 + eastShift, detail: "Beneath St. Martin's Church", time: "In town center"},
-            {name: "Morganna's Roman Villa", lat: 52.450, lng: -1.900, detail: "Ancient ruins, 2 miles south", time: "40 min walk to town"}
-        ];
+            {name: "Morganna's Roman Villa", lat: 52.450, lng: -1.900, detail: "Ancient ruins, 2 miles south", time: "40 min walk"}
+        ].forEach(loc => addLocation(havensCat, loc, '🛡️'));
         
-        havens.forEach(haven => {
-            L.marker([haven.lat, haven.lng], {icon: havenIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${haven.name}</h4><div class="popup-detail">${haven.detail}</div><div class="popup-distance">${haven.time}</div></div>`)
-                .addTo(havensLayer);
-        });
-        
-        // Religious Buildings
-        const religious = [
-            {name: "St. Thomas's Priory", lat: 52.482, lng: -1.895, detail: "House of Augustinian canons, established by De Birminghams"}
-        ];
-        
-        religious.forEach(loc => {
-            L.marker([loc.lat, loc.lng], {icon: religiousIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${loc.name}</h4><div class="popup-detail">${loc.detail}</div></div>`)
-                .addTo(religiousLayer);
-        });
-        
-        // Fae Sacred Sites & Refugee Camps
-        const faeSites = [
+        // Fae Sites
+        const faeCat = initCategory('Fae Sites & Camps', '🧚');
+        [
             {name: "The Standing Stones", lat: 52.477, lng: -1.875, detail: "1 mile east, neutral ground"},
-            {name: "The Hollow Oak", lat: 52.505, lng: -1.875, detail: "Ancient oak in Arden, wedding venue"},
+            {name: "The Hollow Oak", lat: 52.505, lng: -1.875, detail: "Ancient oak, wedding venue"},
             {name: "The Heart Oak", lat: 52.565, lng: -1.870, detail: "Deep Arden, Old Man of the Wood"},
             {name: "Northern Forest Camp", lat: 52.495, lng: -1.895, detail: "Fae refugee camp"},
             {name: "Eastern Heath Camp", lat: 52.475, lng: -1.870, detail: "Fae refugee camp"},
             {name: "Southern Valley Camp", lat: 52.455, lng: -1.900, detail: "Fae refugee camp"},
             {name: "Western Woods Camp", lat: 52.470, lng: -1.920, detail: "Fae refugee camp"},
             {name: "River Bend Camp", lat: 52.465, lng: -1.885, detail: "Fae refugee camp"}
-        ];
+        ].forEach(loc => addLocation(faeCat, loc, '🧚'));
         
-        faeSites.forEach(site => {
-            L.marker([site.lat, site.lng], {icon: faeIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${site.name}</h4><div class="popup-detail">${site.detail}</div></div>`)
-                .addTo(faeLayer);
-        });
-        
-        // Forest Points of Interest
-        const forestPois = [
-            {name: "Moonlit Grove", lat: 52.535, lng: -1.920, detail: "Sacred clearing, fae dancing circle"},
-            {name: "Hunter's Rest", lat: 52.510, lng: -1.960, detail: "Ancient waystation, outlaws' meeting place"},
-            {name: "Whispering Stones", lat: 52.545, lng: -1.850, detail: "Pre-Roman stone circle, voices on the wind"},
-            {name: "Dead Man's Clearing", lat: 52.490, lng: -1.940, detail: "Site of ancient battle, restless spirits"},
-            {name: "Silver Spring", lat: 52.525, lng: -1.890, detail: "Pure water source, healing properties"},
-            {name: "The Watcher's Tree", lat: 52.555, lng: -1.880, detail: "Giant oak, ravens nest here"},
-            {name: "Mushroom Dell", lat: 52.500, lng: -1.910, detail: "Fairy rings, dangerous to enter"},
-            {name: "Wolf's Hollow", lat: 52.530, lng: -1.865, detail: "Werewolf hunting grounds"},
-            {name: "Hermit's Cave", lat: 52.515, lng: -1.935, detail: "Abandoned dwelling, strange writings"},
-            {name: "The Crossroads", lat: 52.505, lng: -1.885, detail: "Where three ancient paths meet"},
-            {name: "Hanging Tree", lat: 52.495, lng: -1.870, detail: "Justice tree, criminals hung here"},
-            {name: "Druid's Pool", lat: 52.540, lng: -1.905, detail: "Dark water, sacrificial site"},
-            {name: "Broken Tower", lat: 52.520, lng: -1.845, detail: "Ruined watchtower, good vantage"},
-            {name: "The Green Chapel", lat: 52.485, lng: -1.855, detail: "Nature shrine, pre-Christian"},
-            {name: "Starfall Meadow", lat: 52.550, lng: -1.915, detail: "Open glade, meteor iron found here"}
-        ];
-        
-        forestPois.forEach(poi => {
-            L.marker([poi.lat, poi.lng], {icon: forestPoiIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${poi.name}</h4><div class="popup-detail">${poi.detail}</div></div>`)
-                .addTo(forestPoisLayer);
-        });
+        // Forest Locations
+        const forestCat = initCategory('Forest Locations', '🌲');
+        [
+            {name: "Moonlit Grove", lat: 52.535, lng: -1.920, detail: "Sacred clearing, fae dancing"},
+            {name: "Hunter's Rest", lat: 52.510, lng: -1.960, detail: "Ancient waystation"},
+            {name: "Whispering Stones", lat: 52.545, lng: -1.850, detail: "Pre-Roman stone circle"},
+            {name: "Dead Man's Clearing", lat: 52.490, lng: -1.940, detail: "Ancient battle site"},
+            {name: "Silver Spring", lat: 52.525, lng: -1.890, detail: "Pure water, healing"},
+            {name: "The Watcher's Tree", lat: 52.555, lng: -1.880, detail: "Giant oak, ravens"},
+            {name: "Mushroom Dell", lat: 52.500, lng: -1.910, detail: "Fairy rings"},
+            {name: "Wolf's Hollow", lat: 52.530, lng: -1.865, detail: "Werewolf grounds"},
+            {name: "Hermit's Cave", lat: 52.515, lng: -1.935, detail: "Strange writings"},
+            {name: "The Crossroads", lat: 52.505, lng: -1.885, detail: "Three paths meet"},
+            {name: "Hanging Tree", lat: 52.495, lng: -1.870, detail: "Justice tree"},
+            {name: "Druid's Pool", lat: 52.540, lng: -1.905, detail: "Dark water"},
+            {name: "Broken Tower", lat: 52.520, lng: -1.845, detail: "Ruined watchtower"},
+            {name: "The Green Chapel", lat: 52.485, lng: -1.855, detail: "Nature shrine"},
+            {name: "Starfall Meadow", lat: 52.550, lng: -1.915, detail: "Meteor iron"}
+        ].forEach(loc => addLocation(forestCat, loc, '🌲'));
         
         // Infrastructure
-        const infrastructure = [
-            {name: "Town Mill", lat: 52.473, lng: -1.893 + eastShift, detail: "On River Rea, Digbeth"},
+        const infraCat = initCategory('Infrastructure', '⚙️');
+        [
+            {name: "Town Mill", lat: 52.473, lng: -1.893 + eastShift, detail: "On River Rea"},
             {name: "Common Grazing", lat: 52.465, lng: -1.900, detail: "South of town"},
-            {name: "Quarry", lat: 52.475, lng: -1.920, detail: "West, sandstone source"},
-            {name: "Archery Butts", lat: 52.480, lng: -1.870, detail: "East training ground"},
-            {name: "Gallows Hill", lat: 52.490, lng: -1.900, detail: "North execution site"}
-        ];
-        
-        infrastructure.forEach(site => {
-            L.marker([site.lat, site.lng], {icon: infrastructureIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${site.name}</h4><div class="popup-detail">${site.detail}</div></div>`)
-                .addTo(infrastructureLayer);
-        });
+            {name: "Quarry", lat: 52.475, lng: -1.920, detail: "Sandstone source"},
+            {name: "Archery Butts", lat: 52.480, lng: -1.870, detail: "Training ground"},
+            {name: "Gallows Hill", lat: 52.490, lng: -1.900, detail: "Execution site"}
+        ].forEach(loc => addLocation(infraCat, loc, '⚙️'));
         
         // Points of Interest
-        const pointsOfInterest = [
-            {name: "Aston Mill Roman Ruins", lat: 52.499, lng: -1.884, detail: "Ancient Roman fortification ruins"},
-            {name: "Bordesley Abbey Ruins", lat: 52.471, lng: -1.877, detail: "Roman temple foundations"},
-            {name: "Moseley Bog Roman Fort", lat: 52.445, lng: -1.885, detail: "Roman outpost ruins"},
-            {name: "Harborne Hill Roman Villa", lat: 52.477, lng: -1.935, detail: "Roman villa ruins"},
-            {name: "Handsworth Grove Roman Shrine", lat: 52.507, lng: -1.924, detail: "Roman sacred grove ruins"},
-            {name: "Metchley Fort Roman Ruins", lat: 52.4510, lng: -1.9384, detail: "Main Roman fort ruins"},
-            {name: "Old Saxon Meeting Stone", lat: 52.485, lng: -1.895, detail: "Pre-conquest gathering place"},
-            {name: "Small Norman Tower", lat: 52.492, lng: -1.878, detail: "Ruined watchtower"},
+        const poiCat = initCategory('Points of Interest', '📍');
+        [
+            {name: "Aston Mill Roman Ruins", lat: 52.499, lng: -1.884, detail: "Roman fortification"},
+            {name: "Bordesley Abbey Ruins", lat: 52.471, lng: -1.877, detail: "Roman temple"},
+            {name: "Moseley Bog Roman Fort", lat: 52.445, lng: -1.885, detail: "Roman outpost"},
+            {name: "Harborne Hill Roman Villa", lat: 52.477, lng: -1.935, detail: "Roman villa"},
+            {name: "Handsworth Grove Shrine", lat: 52.507, lng: -1.924, detail: "Roman grove"},
+            {name: "Metchley Fort Ruins", lat: 52.4510, lng: -1.9384, detail: "Main Roman fort"},
+            {name: "Old Saxon Meeting Stone", lat: 52.485, lng: -1.895, detail: "Pre-conquest"},
+            {name: "Small Norman Tower", lat: 52.492, lng: -1.878, detail: "Ruined tower"},
             {name: "Holy Well of St. Chad", lat: 52.495, lng: -1.865, detail: "Healing spring"},
             {name: "Old Stone Bridge", lat: 52.473, lng: -1.885, detail: "Roman foundations"},
-            {name: "Leper Hospital", lat: 52.462, lng: -1.895, detail: "St. Lazarus foundation"},
+            {name: "Leper Hospital", lat: 52.462, lng: -1.895, detail: "St. Lazarus"},
             {name: "Iron Bloomery", lat: 52.498, lng: -1.888, detail: "Aston ironworks"},
             {name: "Tanners' Quarter", lat: 52.472, lng: -1.892 + eastShift, detail: "Leather working"},
-            {name: "Mill Pool", lat: 52.477, lng: -1.906, detail: "Dammed river for power"},
-            {name: "Charcoal Burners' Camp", lat: 52.455, lng: -1.925, detail: "Forest edge settlement"},
-            {name: "Roman Road Junction", lat: 52.468, lng: -1.888, detail: "Ryknild & Watling Street"},
-            {name: "Plague Pit", lat: 52.463, lng: -1.912, detail: "1350s burial ground"},
+            {name: "Mill Pool", lat: 52.477, lng: -1.906, detail: "Dammed river"},
+            {name: "Charcoal Burners' Camp", lat: 52.455, lng: -1.925, detail: "Forest edge"},
+            {name: "Roman Road Junction", lat: 52.468, lng: -1.888, detail: "Ryknild & Watling"},
+            {name: "Plague Pit", lat: 52.463, lng: -1.912, detail: "1350s burial"},
             {name: "Hermit's Cell", lat: 52.488, lng: -1.865, detail: "Anchorite dwelling"},
-            {name: "Get of Fenris Den", lat: 52.525, lng: -1.875, detail: "Werewolf pack territory"},
+            {name: "Get of Fenris Den", lat: 52.525, lng: -1.875, detail: "Werewolf territory"},
             {name: "Northwest Logging Camp", lat: 52.515, lng: -1.920, detail: "Lichfield road"},
             {name: "Northeast Logging Camp", lat: 52.510, lng: -1.850, detail: "Tamworth road"},
             {name: "East Logging Camp", lat: 52.485, lng: -1.845, detail: "Coventry road"}
-        ];
+        ].forEach(loc => addLocation(poiCat, loc, '📍'));
         
-        pointsOfInterest.forEach(poi => {
-            L.marker([poi.lat, poi.lng], {icon: poiIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${poi.name}</h4><div class="popup-detail">${poi.detail}</div></div>`)
-                .addTo(poisLayer);
-        });
-        
-        // Local settlements
-        const settlements = [
+        // Settlements
+        const settlementsCat = initCategory('Local Settlements', '🏘️');
+        [
             {name: "Aston", lat: 52.506, lng: -1.890, souls: "600-800", time: "30 min walk"},
             {name: "Erdington", lat: 52.520, lng: -1.840, souls: "300-400", time: "1 hour walk"},
             {name: "Yardley", lat: 52.475, lng: -1.810, souls: "400-500", time: "1.5 hours walk"},
@@ -569,84 +697,232 @@
             {name: "Northfield", lat: 52.411, lng: -1.964, souls: "250-300", time: "2.5 hours walk"},
             {name: "Sutton Coldfield", lat: 52.5704, lng: -1.8240, souls: "500-700", time: "3 hours walk"},
             {name: "Solihull", lat: 52.4143, lng: -1.7809, souls: "400-500", time: "3 hours walk"}
-        ];
+        ].forEach(loc => addLocation(settlementsCat, loc, '🏘️'));
         
-        settlements.forEach(settlement => {
-            L.marker([settlement.lat, settlement.lng], {icon: settlementIcon})
-                .bindPopup(`<div class="custom-popup"><h4>${settlement.name}</h4><div class="popup-souls">Population: ${settlement.souls} souls</div><div class="popup-distance">${settlement.time}</div></div>`)
-                .addTo(settlementsLayer);
-        });
-        
-        // Regional towns
-        const regionalTowns = [
-            {name: "Coventry", lat: 52.4081, lng: -1.5106, souls: "6,000-8,000", walking: "1 day", riding: "4-5 hours", note: "Major trade center, within Forest of Arden"},
-            {name: "Lichfield", lat: 52.6835, lng: -1.8266, souls: "2,000", walking: "1 day", riding: "3-4 hours", note: "Cathedral city"},
-            {name: "Warwick", lat: 52.2832, lng: -1.5849, souls: "2,000-2,500", walking: "1 day", riding: "4-5 hours", note: "County town, within Forest of Arden"},
-            {name: "Tamworth", lat: 52.6340, lng: -1.6959, souls: "1,500", walking: "5-6 hours", riding: "2-3 hours", note: "Former Mercian capital"},
-            {name: "Worcester", lat: 52.1894, lng: -2.2200, souls: "3,000", walking: "1.5-2 days", riding: "6-8 hours", note: "Cathedral city, River Severn port"},
-            {name: "Leicester", lat: 52.6369, lng: -1.1398, souls: "3,000", walking: "1.5-2 days", riding: "6-8 hours", note: "Major wool market"},
-            {name: "Nottingham", lat: 52.9548, lng: -1.1581, souls: "3,000", walking: "2 days", riding: "8-10 hours", note: "Castle and market town"},
-            {name: "Shrewsbury", lat: 52.7073, lng: -2.7527, souls: "3,000", walking: "2 days", riding: "8-10 hours", note: "Welsh border fortress"},
-            {name: "Hereford", lat: 52.0565, lng: -2.7160, souls: "2,000", walking: "2 days", riding: "1 day", note: "Cathedral city, Welsh marches"},
-            {name: "Gloucester", lat: 51.8642, lng: -2.2382, souls: "2,500", walking: "2 days", riding: "8-10 hours", note: "Abbey town, River Severn crossing"},
-            {name: "Derby", lat: 52.9225, lng: -1.4746, souls: "1,500", walking: "1.5 days", riding: "6-7 hours", note: "Market town"},
-            {name: "Stafford", lat: 52.8066, lng: -2.1159, souls: "1,200", walking: "1 day", riding: "4-5 hours", note: "County town"}
-        ];
-        
-        regionalTowns.forEach(town => {
-            const popupContent = `
-                <div class="custom-popup">
-                    <h4>${town.name}</h4>
-                    <div class="popup-souls">Population: ${town.souls} souls</div>
+        // Regional Towns
+        const regionalCat = initCategory('Regional Towns', '🏰');
+        [
+            {name: "Coventry", lat: 52.4081, lng: -1.5106, souls: "6,000-8,000", detail: "Major trade center, within Forest of Arden", walking: "1 day", riding: "4-5 hours"},
+            {name: "Lichfield", lat: 52.6835, lng: -1.8266, souls: "2,000", detail: "Cathedral city", walking: "1 day", riding: "3-4 hours"},
+            {name: "Warwick", lat: 52.2832, lng: -1.5849, souls: "2,000-2,500", detail: "County town, within Forest of Arden", walking: "1 day", riding: "4-5 hours"},
+            {name: "Tamworth", lat: 52.6340, lng: -1.6959, souls: "1,500", detail: "Former Mercian capital", walking: "5-6 hours", riding: "2-3 hours"},
+            {name: "Worcester", lat: 52.1894, lng: -2.2200, souls: "3,000", detail: "Cathedral city, River Severn port", walking: "1.5-2 days", riding: "6-8 hours"},
+            {name: "Leicester", lat: 52.6369, lng: -1.1398, souls: "3,000", detail: "Major wool market", walking: "1.5-2 days", riding: "6-8 hours"},
+            {name: "Nottingham", lat: 52.9548, lng: -1.1581, souls: "3,000", detail: "Castle and market town", walking: "2 days", riding: "8-10 hours"},
+            {name: "Shrewsbury", lat: 52.7073, lng: -2.7527, souls: "3,000", detail: "Welsh border fortress", walking: "2 days", riding: "8-10 hours"},
+            {name: "Hereford", lat: 52.0565, lng: -2.7160, souls: "2,000", detail: "Cathedral city, Welsh marches", walking: "2 days", riding: "1 day"},
+            {name: "Gloucester", lat: 51.8642, lng: -2.2382, souls: "2,500", detail: "Abbey town, River Severn crossing", walking: "2 days", riding: "8-10 hours"},
+            {name: "Derby", lat: 52.9225, lng: -1.4746, souls: "1,500", detail: "Market town", walking: "1.5 days", riding: "6-7 hours"},
+            {name: "Stafford", lat: 52.8066, lng: -2.1159, souls: "1,200", detail: "County town", walking: "1 day", riding: "4-5 hours"}
+        ].forEach(loc => {
+            const marker = L.marker([loc.lat, loc.lng], {icon: icons.town})
+                .bindPopup(`<div class="custom-popup">
+                    <h4>${loc.name}</h4>
+                    <div class="popup-souls">Population: ${loc.souls} souls</div>
                     <div class="popup-travel">
-                        <div class="popup-walking">Walking: ${town.walking}</div>
-                        <div class="popup-riding">Riding: ${town.riding}</div>
+                        <div class="popup-walking">Walking: ${loc.walking}</div>
+                        <div class="popup-riding">Riding: ${loc.riding}</div>
                     </div>
-                    ${town.note ? `<div class="popup-detail">${town.note}</div>` : ''}
-                </div>
-            `;
-            L.marker([town.lat, town.lng], {icon: regionalTownIcon})
-                .bindPopup(popupContent)
-                .addTo(regionalLayer);
+                    <div class="popup-detail">${loc.detail}</div>
+                </div>`);
+            
+            marker.addTo(regionalCat.layer);
+            regionalCat.items.push({
+                name: loc.name,
+                marker: marker,
+                location: loc,
+                visible: true
+            });
         });
         
-        // Major cities
-        const majorCities = [
-            {name: "London", lat: 51.5074, lng: -0.1278, souls: "35,000-40,000", walking: "4-5 days", riding: "2 days", note: "Capital of England, Mithras's domain"},
-            {name: "York", lat: 53.9591, lng: -1.0815, souls: "8,000-10,000", walking: "4-5 days", riding: "2 days", note: "Second city of England, Archbishop's seat"},
-            {name: "Bristol", lat: 51.4545, lng: -2.5879, souls: "8,000-10,000", walking: "2-3 days", riding: "1 day", note: "Major western port, Atlantic trade"},
-            {name: "Norwich", lat: 52.6309, lng: 1.2974, souls: "7,000-8,000", walking: "5-6 days", riding: "2-3 days", note: "East Anglia's capital, wool trade center"},
-            {name: "Oxford", lat: 51.7520, lng: -1.2577, souls: "4,000", walking: "2 days", riding: "1 day", note: "University town, center of learning"},
-            {name: "Chester", lat: 53.1930, lng: -2.8930, souls: "3,000", walking: "2-3 days", riding: "1 day", note: "Border fortress, Irish Sea port"},
-            {name: "Lincoln", lat: 53.2307, lng: -0.5406, souls: "4,000", walking: "3 days", riding: "1-1.5 days", note: "Cathedral city, wool staple"},
-            {name: "Canterbury", lat: 51.2802, lng: 1.0789, souls: "3,000", walking: "5-6 days", riding: "2-3 days", note: "Pilgrimage center, Archbishop's seat"},
-            {name: "Winchester", lat: 51.0632, lng: -1.3080, souls: "2,000", walking: "4 days", riding: "2 days", note: "Former capital, cathedral city"},
-            {name: "Salisbury", lat: 51.0693, lng: -1.7957, souls: "3,500", walking: "3-4 days", riding: "1.5-2 days", note: "Cathedral city, cloth market"},
-            {name: "Exeter", lat: 50.7184, lng: -3.5339, souls: "3,000", walking: "5-6 days", riding: "2-3 days", note: "Devon capital, tin trade"},
-            {name: "Newcastle", lat: 54.9783, lng: -1.6178, souls: "5,000-6,000", walking: "6-7 days", riding: "3 days", note: "Northern stronghold, coal trade"}
-        ];
-        
-        majorCities.forEach(city => {
-            const popupContent = `
-                <div class="custom-popup">
-                    <h4>${city.name}</h4>
-                    <div class="popup-souls">Population: ${city.souls} souls</div>
+        // Major Cities
+        const citiesCat = initCategory('Major Cities', '🏙️');
+        [
+            {name: "London", lat: 51.5074, lng: -0.1278, souls: "35,000-40,000", detail: "Capital of England, Mithras's domain", walking: "4-5 days", riding: "2 days"},
+            {name: "York", lat: 53.9591, lng: -1.0815, souls: "8,000-10,000", detail: "Second city of England, Archbishop's seat", walking: "4-5 days", riding: "2 days"},
+            {name: "Bristol", lat: 51.4545, lng: -2.5879, souls: "8,000-10,000", detail: "Major western port, Atlantic trade", walking: "2-3 days", riding: "1 day"},
+            {name: "Norwich", lat: 52.6309, lng: 1.2974, souls: "7,000-8,000", detail: "East Anglia's capital, wool trade center", walking: "5-6 days", riding: "2-3 days"},
+            {name: "Oxford", lat: 51.7520, lng: -1.2577, souls: "4,000", detail: "University town, center of learning", walking: "2 days", riding: "1 day"},
+            {name: "Chester", lat: 53.1930, lng: -2.8930, souls: "3,000", detail: "Border fortress, Irish Sea port", walking: "2-3 days", riding: "1 day"},
+            {name: "Lincoln", lat: 53.2307, lng: -0.5406, souls: "4,000", detail: "Cathedral city, wool staple", walking: "3 days", riding: "1-1.5 days"},
+            {name: "Canterbury", lat: 51.2802, lng: 1.0789, souls: "3,000", detail: "Pilgrimage center, Archbishop's seat", walking: "5-6 days", riding: "2-3 days"},
+            {name: "Winchester", lat: 51.0632, lng: -1.3080, souls: "2,000", detail: "Former capital, cathedral city", walking: "4 days", riding: "2 days"},
+            {name: "Salisbury", lat: 51.0693, lng: -1.7957, souls: "3,500", detail: "Cathedral city, cloth market", walking: "3-4 days", riding: "1.5-2 days"},
+            {name: "Exeter", lat: 50.7184, lng: -3.5339, souls: "3,000", detail: "Devon capital, tin trade", walking: "5-6 days", riding: "2-3 days"},
+            {name: "Newcastle", lat: 54.9783, lng: -1.6178, souls: "5,000-6,000", detail: "Northern stronghold, coal trade", walking: "6-7 days", riding: "3 days"}
+        ].forEach(loc => {
+            const marker = L.marker([loc.lat, loc.lng], {icon: icons.city})
+                .bindPopup(`<div class="custom-popup">
+                    <h4>${loc.name}</h4>
+                    <div class="popup-souls">Population: ${loc.souls} souls</div>
                     <div class="popup-travel">
-                        <div class="popup-walking">Walking: ${city.walking}</div>
-                        <div class="popup-riding">Riding: ${city.riding}</div>
+                        <div class="popup-walking">Walking: ${loc.walking}</div>
+                        <div class="popup-riding">Riding: ${loc.riding}</div>
                     </div>
-                    <div class="popup-detail">${city.note}</div>
-                </div>
-            `;
-            L.marker([city.lat, city.lng], {icon: majorCityIcon})
-                .bindPopup(popupContent)
-                .addTo(majorCitiesLayer);
+                    <div class="popup-detail">${loc.detail}</div>
+                </div>`);
+            
+            marker.addTo(citiesCat.layer);
+            citiesCat.items.push({
+                name: loc.name,
+                marker: marker,
+                location: loc,
+                visible: true
+            });
         });
         
-        // Calculate walking time between two points
+        // Build UI
+        function buildUI() {
+            const categoryList = document.getElementById('category-list');
+            categoryList.innerHTML = '';
+            
+            Object.values(categories).forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                categoryDiv.dataset.category = category.name;
+                
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'category-header';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = true;
+                checkbox.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const checked = this.checked;
+                    category.items.forEach(item => {
+                        if (checked && item.visible) {
+                            category.layer.addLayer(item.marker);
+                        } else {
+                            category.layer.removeLayer(item.marker);
+                        }
+                    });
+                    categoryDiv.querySelectorAll('.item input[type="checkbox"]').forEach(cb => {
+                        cb.checked = checked;
+                    });
+                });
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'category-name';
+                nameSpan.textContent = `${category.emoji} ${category.name}`;
+                
+                const arrow = document.createElement('span');
+                arrow.className = 'category-arrow';
+                arrow.textContent = '▶';
+                
+                headerDiv.appendChild(checkbox);
+                headerDiv.appendChild(nameSpan);
+                headerDiv.appendChild(arrow);
+                
+                headerDiv.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        categoryDiv.classList.toggle('expanded');
+                    }
+                });
+                
+                const itemsDiv = document.createElement('div');
+                itemsDiv.className = 'category-items';
+                
+                category.items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'item';
+                    
+                    const itemCheckbox = document.createElement('input');
+                    itemCheckbox.type = 'checkbox';
+                    itemCheckbox.checked = true;
+                    itemCheckbox.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        if (this.checked) {
+                            category.layer.addLayer(item.marker);
+                        } else {
+                            category.layer.removeLayer(item.marker);
+                        }
+                    });
+                    
+                    const itemName = document.createElement('span');
+                    itemName.className = 'item-name';
+                    itemName.textContent = item.name;
+                    
+                    itemDiv.appendChild(itemCheckbox);
+                    itemDiv.appendChild(itemName);
+                    
+                    itemDiv.addEventListener('click', function() {
+                        if (item.location) {
+                            map.setView([item.location.lat, item.location.lng], 15);
+                            item.marker.openPopup();
+                        }
+                    });
+                    
+                    itemsDiv.appendChild(itemDiv);
+                });
+                
+                categoryDiv.appendChild(headerDiv);
+                categoryDiv.appendChild(itemsDiv);
+                categoryList.appendChild(categoryDiv);
+            });
+        }
+        
+        buildUI();
+        
+        // Search functionality
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            document.querySelectorAll('.category').forEach(categoryDiv => {
+                const categoryName = categoryDiv.dataset.category;
+                const category = categories[categoryName];
+                let hasVisibleItems = false;
+                
+                categoryDiv.querySelectorAll('.item').forEach((itemDiv, index) => {
+                    const item = category.items[index];
+                    if (item.name.toLowerCase().includes(searchTerm)) {
+                        itemDiv.classList.remove('hidden');
+                        hasVisibleItems = true;
+                    } else {
+                        itemDiv.classList.add('hidden');
+                    }
+                });
+                
+                if (hasVisibleItems || searchTerm === '') {
+                    categoryDiv.classList.remove('hidden');
+                } else {
+                    categoryDiv.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Select/Deselect all
+        document.getElementById('select-all').addEventListener('click', function() {
+            Object.values(categories).forEach(category => {
+                category.items.forEach(item => {
+                    category.layer.addLayer(item.marker);
+                });
+            });
+            document.querySelectorAll('.category-header input[type="checkbox"]').forEach(cb => cb.checked = true);
+            document.querySelectorAll('.item input[type="checkbox"]').forEach(cb => cb.checked = true);
+        });
+        
+        document.getElementById('deselect-all').addEventListener('click', function() {
+            Object.values(categories).forEach(category => {
+                category.items.forEach(item => {
+                    category.layer.removeLayer(item.marker);
+                });
+            });
+            document.querySelectorAll('.category-header input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.item input[type="checkbox"]').forEach(cb => cb.checked = false);
+        });
+        
+        // Toggle labels
+        document.getElementById('toggle-labels').addEventListener('click', function() {
+            showLabels = !showLabels;
+            this.textContent = showLabels ? 'Hide Labels' : 'Show Labels';
+            this.classList.toggle('active', showLabels);
+            updateMarkerLabels();
+        });
+        
+        // Distance calculator
         function calculateWalkingTime(lat1, lng1, lat2, lng2) {
-            // Calculate distance in km using Haversine formula
-            const R = 6371; // Earth's radius in km
+            const R = 6371;
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLng = (lng2 - lng1) * Math.PI / 180;
             const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -654,46 +930,33 @@
                       Math.sin(dLng/2) * Math.sin(dLng/2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             const distance = R * c;
-            
-            // Convert to miles
             const miles = distance * 0.621371;
-            
-            // Medieval walking speed: ~20-25 miles per day, 3 mph average
             const hours = miles / 3;
-            const days = Math.floor(hours / 10); // 10 hours walking per day
+            const days = Math.floor(hours / 10);
             const remainingHours = Math.round(hours % 10);
             
-            // Format output
             if (days > 0) {
-                if (remainingHours > 0) {
-                    return {
-                        walking: `${days} day${days > 1 ? 's' : ''}, ${remainingHours} hour${remainingHours > 1 ? 's' : ''}`,
-                        riding: `${Math.ceil(hours/2.5)} hours`, // Riding is about 2.5x faster
-                        distance: Math.round(miles)
-                    };
-                }
                 return {
-                    walking: `${days} day${days > 1 ? 's' : ''}`,
+                    walking: `${days} day${days > 1 ? 's' : ''}${remainingHours > 0 ? `, ${remainingHours} hr` : ''}`,
                     riding: `${Math.ceil(hours/2.5)} hours`,
                     distance: Math.round(miles)
                 };
             } else if (hours < 1) {
                 const minutes = Math.round(hours * 60);
                 return {
-                    walking: `${minutes} minutes`,
-                    riding: `${Math.round(minutes/2.5)} minutes`,
+                    walking: `${minutes} min`,
+                    riding: `${Math.round(minutes/2.5)} min`,
                     distance: Math.round(miles * 10) / 10
                 };
             } else {
                 return {
-                    walking: `${Math.round(hours)} hour${Math.round(hours) > 1 ? 's' : ''}`,
-                    riding: `${Math.ceil(hours/2.5)} hours`,
+                    walking: `${Math.round(hours)} hr`,
+                    riding: `${Math.ceil(hours/2.5)} hr`,
                     distance: Math.round(miles)
                 };
             }
         }
         
-        // Distance calculator functionality
         document.getElementById('select-from').addEventListener('click', function() {
             selectingFrom = true;
             selectingTo = false;
@@ -732,43 +995,32 @@
             map.getContainer().style.cursor = '';
         });
         
-        // Handle map clicks for distance calculation
         map.on('click', function(e) {
             if (selectingFrom) {
                 if (fromMarker) map.removeLayer(fromMarker);
                 fromPoint = e.latlng;
-                fromMarker = L.marker(e.latlng, {
-                    icon: createEmojiIcon('📍', 30)
-                }).addTo(map);
-                document.getElementById('point-from').innerHTML = `From: ${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`;
+                fromMarker = L.marker(e.latlng, {icon: createEmojiIcon('📍', 32)}).addTo(map);
+                document.getElementById('point-from').innerHTML = `From: Selected`;
                 selectingFrom = false;
                 document.getElementById('select-from').classList.remove('active');
                 map.getContainer().style.cursor = '';
-                
                 if (fromPoint && toPoint) updateDistance();
             } else if (selectingTo) {
                 if (toMarker) map.removeLayer(toMarker);
                 toPoint = e.latlng;
-                toMarker = L.marker(e.latlng, {
-                    icon: createEmojiIcon('🎯', 30)
-                }).addTo(map);
-                document.getElementById('point-to').innerHTML = `To: ${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`;
+                toMarker = L.marker(e.latlng, {icon: createEmojiIcon('🎯', 32)}).addTo(map);
+                document.getElementById('point-to').innerHTML = `To: Selected`;
                 selectingTo = false;
                 document.getElementById('select-to').classList.remove('active');
                 map.getContainer().style.cursor = '';
-                
                 if (fromPoint && toPoint) updateDistance();
             }
         });
         
         function updateDistance() {
             if (pathLine) map.removeLayer(pathLine);
-            
             pathLine = L.polyline([fromPoint, toPoint], {
-                color: '#ff6b6b',
-                weight: 3,
-                opacity: 0.8,
-                dashArray: '10, 10'
+                color: '#ff6b6b', weight: 3, opacity: 0.8, dashArray: '10, 10'
             }).addTo(map);
             
             const time = calculateWalkingTime(
@@ -778,123 +1030,14 @@
             
             document.getElementById('distance-result').innerHTML = `
                 <strong>Distance:</strong> ~${time.distance} miles<br>
-                <strong>🚶 Walking Time:</strong> ${time.walking}<br>
-                <strong>🐎 Riding Time:</strong> ${time.riding}<br>
-                <em style="font-size: 11px;">Medieval travel estimates</em>
+                <strong>🚶 Walking:</strong> ${time.walking}<br>
+                <strong>🐎 Riding:</strong> ${time.riding}
             `;
             document.getElementById('distance-result').style.display = 'block';
         }
         
-        // Add all layers to map
-        forestLayer.addTo(map);
-        covenantLayer.addTo(map);
-        birminghamBuildingsLayer.addTo(map);
-        havensLayer.addTo(map);
-        religiousLayer.addTo(map);
-        faeLayer.addTo(map);
-        infrastructureLayer.addTo(map);
-        poisLayer.addTo(map);
-        forestPoisLayer.addTo(map);
-        settlementsLayer.addTo(map);
-        regionalLayer.addTo(map);
-        majorCitiesLayer.addTo(map);
-        
-        // Store all overlay layers
-        const allOverlays = {
-            "Forest of Arden": forestLayer,
-            "Covenant Boundary": covenantLayer,
-            "Birmingham Buildings": birminghamBuildingsLayer,
-            "Character Havens": havensLayer,
-            "Religious Sites": religiousLayer,
-            "Fae Sites & Camps": faeLayer,
-            "Infrastructure": infrastructureLayer,
-            "Points of Interest": poisLayer,
-            "Forest Locations": forestPoisLayer,
-            "Local Settlements": settlementsLayer,
-            "Regional Towns": regionalLayer,
-            "Major Cities": majorCitiesLayer
-        };
-        
-        // Layer control
-        const layerControl = L.control.layers(null, allOverlays, {collapsed: false});
-        layerControl.addTo(map);
-        
-        // Select/Deselect All functionality
-        document.getElementById('select-all').addEventListener('click', function() {
-            for (let name in allOverlays) {
-                map.addLayer(allOverlays[name]);
-            }
-        });
-        
-        document.getElementById('deselect-all').addEventListener('click', function() {
-            for (let name in allOverlays) {
-                map.removeLayer(allOverlays[name]);
-            }
-        });
-        
-        // Legend
-        const legend = L.control({position: 'bottomright'});
-        
-        legend.onAdd = function(map) {
-            const div = L.DomUtil.create('div', 'legend');
-            div.innerHTML = `
-                <h3>Birmingham 1410</h3>
-                <div class="legend-item">
-                    <span class="legend-symbol">💜</span>
-                    <span>Covenant Boundary</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">🏛️</span>
-                    <span>Birmingham Buildings</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">🛡️</span>
-                    <span>Character Havens</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">⛪</span>
-                    <span>Religious Sites</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">🧚</span>
-                    <span>Fae Sites</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">⚙️</span>
-                    <span>Infrastructure</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">📍</span>
-                    <span>Points of Interest</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">🌲</span>
-                    <span>Forest Locations</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">🏘️</span>
-                    <span>Settlements</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">🏰</span>
-                    <span>Regional Towns</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-symbol">🏙️</span>
-                    <span>Major Cities</span>
-                </div>
-            `;
-            return div;
-        };
-        
-        legend.addTo(map);
-        
         // Default view
-        const birminghamBounds = L.latLngBounds([
-            [52.42, -2.0],
-            [52.55, -1.8]
-        ]);
-        map.fitBounds(birminghamBounds);
+        map.fitBounds([[52.42, -2.0], [52.55, -1.8]]);
     </script>
 </body>
 </html>
