@@ -1093,20 +1093,45 @@
               .addTo(specialLayers.layer);
             specialLayers.items.push({name: 'Forest of Arden', marker: forestPolygon, visible: true});
             
+            // Standing Stones & Ancient Sites - NEW CATEGORY
+            const stonesCat = initCategory('Standing Stones & Ancient Sites', '🗿');
+            [
+                {name: "The Standing Stones", lat: 52.520, lng: -1.926, detail: "2 miles west of Gunnar's Barrow, neutral ground for supernatural meetings"},
+                {name: "Whispering Stones", lat: 52.545, lng: -1.850, detail: "Pre-Roman stone circle, strange voices at night"},
+                {name: "Old Saxon Meeting Stone", lat: 52.485, lng: -1.895, detail: "Pre-conquest gathering place"},
+                {name: "Druid's Pool", lat: 52.540, lng: -1.905, detail: "Dark water, ancient ritual site"},
+                {name: "The Crossroads", lat: 52.505, lng: -1.885, detail: "Three paths meet, ancient ley lines"},
+                {name: "Dead Man's Clearing", lat: 52.490, lng: -1.940, detail: "Ancient battle site, restless spirits"}
+            ].forEach(loc => addLocation(stonesCat, loc, '🗿'));
+            
+            // Roman Ruins - NEW CATEGORY
+            const romanCat = initCategory('Roman Ruins', '🏛️');
+            [
+                {name: "Aston Mill Roman Ruins", lat: 52.499, lng: -1.884, detail: "Roman fortification ruins"},
+                {name: "Bordesley Abbey Ruins", lat: 52.471, lng: -1.877, detail: "Built on Roman temple foundations"},
+                {name: "Moseley Bog Roman Fort", lat: 52.445, lng: -1.885, detail: "Roman outpost remains"},
+                {name: "Harborne Hill Roman Villa", lat: 52.477, lng: -1.935, detail: "Roman villa ruins"},
+                {name: "Handsworth Grove Shrine", lat: 52.507, lng: -1.924, detail: "Roman grove and shrine"},
+                {name: "Metchley Fort Ruins", lat: 52.4510, lng: -1.9384, detail: "Main Roman fort remains"},
+                {name: "Old Stone Bridge", lat: 52.473, lng: -1.885, detail: "Roman bridge foundations"},
+                {name: "Roman Road Junction", lat: 52.468, lng: -1.888, detail: "Ryknild Street & Watling Street crossing"},
+                {name: "Morganna's Roman Villa", lat: 52.450, lng: -1.900, detail: "Ancient villa ruins, 2 miles south", time: "40 min walk"}
+            ].forEach(loc => addLocation(romanCat, loc, '🏛️'));
+            
             // Birmingham Buildings
-            const birminghamCat = initCategory('Birmingham Buildings', '🏛️');
+            const birminghamCat = initCategory('Birmingham Buildings', '🏰');
             [
                 {name: "St. Martin's Church", lat: 52.4770, lng: -1.8976 + eastShift, detail: "Parish church", emoji: '⛪'},
                 {name: "St. Thomas's Priory", lat: 52.482, lng: -1.895, detail: "House of Augustinian canons", emoji: '⛪'},
-                {name: "Bull Ring Market", lat: 52.4768, lng: -1.8974 + eastShift, detail: "Triangular market space", emoji: '🏛️'},
+                {name: "Bull Ring Market", lat: 52.4768, lng: -1.8974 + eastShift, detail: "Triangular market space", emoji: '🏰'},
                 {name: "De Birmingham Manor", lat: 52.479, lng: -1.900 + eastShift, detail: "Moated manor complex", emoji: '🏰'},
-                {name: "Guild of the Holy Cross Hall", lat: 52.4785, lng: -1.8945 + eastShift, detail: "Guild meeting hall", emoji: '🏛️'},
-                {name: "Market Cross", lat: 52.4768, lng: -1.8975 + eastShift, detail: "Town center", emoji: '🏛️'},
-                {name: "Stocks & Pillory", lat: 52.4767, lng: -1.8973 + eastShift, detail: "Justice and punishment", emoji: '🏛️'},
-                {name: "The Shambles", lat: 52.4775, lng: -1.8970 + eastShift, detail: "Butchers' quarter", emoji: '🏛️'},
+                {name: "Guild of the Holy Cross Hall", lat: 52.4785, lng: -1.8945 + eastShift, detail: "Guild meeting hall", emoji: '🏰'},
+                {name: "Market Cross", lat: 52.4768, lng: -1.8975 + eastShift, detail: "Town center", emoji: '🏰'},
+                {name: "Stocks & Pillory", lat: 52.4767, lng: -1.8973 + eastShift, detail: "Justice and punishment", emoji: '🏰'},
+                {name: "The Shambles", lat: 52.4775, lng: -1.8970 + eastShift, detail: "Butchers' quarter", emoji: '🏰'},
                 {name: "The Old Crown", lat: 52.476, lng: -1.892 + eastShift, detail: "Tavern in Deritend", emoji: '🍺'},
                 {name: "Silver Swan Inn", lat: 52.478, lng: -1.894 + eastShift, detail: "Moor Street inn", emoji: '🍺'},
-                {name: "Master Woolmonger's House", lat: 52.478, lng: -1.895 + eastShift, detail: "Wealthy merchant residence", emoji: '🏛️'},
+                {name: "Master Woolmonger's House", lat: 52.478, lng: -1.895 + eastShift, detail: "Wealthy merchant residence", emoji: '🏰'},
                 {name: "Master John Smith's Forge", lat: 52.475, lng: -1.895 + eastShift, detail: "Digbeth smithy", emoji: '⚒️'},
                 {name: "Master Wilhelm's Silver Workshop", lat: 52.476, lng: -1.896 + eastShift, detail: "Digbeth workshop", emoji: '⚒️'},
                 {name: "Thomas Ironwright's Smithy", lat: 52.475, lng: -1.897 + eastShift, detail: "New Street area", emoji: '⚒️'}
@@ -1118,14 +1143,12 @@
                 {name: "Gunnar's Barrow", lat: 52.520, lng: -1.880, detail: "Ancient burial mound, 3 miles north", time: "20 min to town"},
                 {name: "Elizabeth's Tower", lat: 52.4815, lng: -1.9015 + eastShift, detail: "Within De Birmingham Manor", time: "5 min to Bull Ring"},
                 {name: "Marcus's Laboratory", lat: 52.478, lng: -1.895 + eastShift, detail: "Secret beneath Woolmonger's", time: "3 min to Bull Ring"},
-                {name: "Lucian's Crypt", lat: 52.4770, lng: -1.8976 + eastShift, detail: "Beneath St. Martin's Church", time: "In town center"},
-                {name: "Morganna's Roman Villa", lat: 52.450, lng: -1.900, detail: "Ancient ruins, 2 miles south", time: "40 min walk"}
+                {name: "Lucian's Crypt", lat: 52.4770, lng: -1.8976 + eastShift, detail: "Beneath St. Martin's Church", time: "In town center"}
             ].forEach(loc => addLocation(havensCat, loc, '🛡️'));
             
-            // Fae Sites
+            // Fae Sites & Camps
             const faeCat = initCategory('Fae Sites & Camps', '🧚');
             [
-                {name: "The Standing Stones", lat: 52.477, lng: -1.875, detail: "1 mile east, neutral ground"},
                 {name: "The Hollow Oak", lat: 52.505, lng: -1.875, detail: "Ancient oak, wedding venue"},
                 {name: "The Heart Oak", lat: 52.565, lng: -1.870, detail: "Deep Arden, Old Man of the Wood"},
                 {name: "Northern Forest Camp", lat: 52.495, lng: -1.895, detail: "Fae refugee camp"},
@@ -1140,16 +1163,12 @@
             [
                 {name: "Moonlit Grove", lat: 52.535, lng: -1.920, detail: "Sacred clearing, fae dancing"},
                 {name: "Hunter's Rest", lat: 52.510, lng: -1.960, detail: "Ancient waystation"},
-                {name: "Whispering Stones", lat: 52.545, lng: -1.850, detail: "Pre-Roman stone circle"},
-                {name: "Dead Man's Clearing", lat: 52.490, lng: -1.940, detail: "Ancient battle site"},
                 {name: "Silver Spring", lat: 52.525, lng: -1.890, detail: "Pure water, healing"},
                 {name: "The Watcher's Tree", lat: 52.555, lng: -1.880, detail: "Giant oak, ravens"},
                 {name: "Mushroom Dell", lat: 52.500, lng: -1.910, detail: "Fairy rings"},
                 {name: "Wolf's Hollow", lat: 52.530, lng: -1.865, detail: "Werewolf grounds"},
                 {name: "Hermit's Cave", lat: 52.515, lng: -1.935, detail: "Strange writings"},
-                {name: "The Crossroads", lat: 52.505, lng: -1.885, detail: "Three paths meet"},
                 {name: "Hanging Tree", lat: 52.495, lng: -1.870, detail: "Justice tree"},
-                {name: "Druid's Pool", lat: 52.540, lng: -1.905, detail: "Dark water"},
                 {name: "Broken Tower", lat: 52.520, lng: -1.845, detail: "Ruined watchtower"},
                 {name: "The Green Chapel", lat: 52.485, lng: -1.855, detail: "Nature shrine"},
                 {name: "Starfall Meadow", lat: 52.550, lng: -1.915, detail: "Meteor iron"}
@@ -1168,22 +1187,13 @@
             // Points of Interest
             const poiCat = initCategory('Points of Interest', '📍');
             [
-                {name: "Aston Mill Roman Ruins", lat: 52.499, lng: -1.884, detail: "Roman fortification"},
-                {name: "Bordesley Abbey Ruins", lat: 52.471, lng: -1.877, detail: "Roman temple"},
-                {name: "Moseley Bog Roman Fort", lat: 52.445, lng: -1.885, detail: "Roman outpost"},
-                {name: "Harborne Hill Roman Villa", lat: 52.477, lng: -1.935, detail: "Roman villa"},
-                {name: "Handsworth Grove Shrine", lat: 52.507, lng: -1.924, detail: "Roman grove"},
-                {name: "Metchley Fort Ruins", lat: 52.4510, lng: -1.9384, detail: "Main Roman fort"},
-                {name: "Old Saxon Meeting Stone", lat: 52.485, lng: -1.895, detail: "Pre-conquest"},
                 {name: "Small Norman Tower", lat: 52.492, lng: -1.878, detail: "Ruined tower"},
                 {name: "Holy Well of St. Chad", lat: 52.495, lng: -1.865, detail: "Healing spring"},
-                {name: "Old Stone Bridge", lat: 52.473, lng: -1.885, detail: "Roman foundations"},
                 {name: "Leper Hospital", lat: 52.462, lng: -1.895, detail: "St. Lazarus"},
                 {name: "Iron Bloomery", lat: 52.498, lng: -1.888, detail: "Aston ironworks"},
                 {name: "Tanners' Quarter", lat: 52.472, lng: -1.892 + eastShift, detail: "Leather working"},
                 {name: "Mill Pool", lat: 52.477, lng: -1.906, detail: "Dammed river"},
                 {name: "Charcoal Burners' Camp", lat: 52.455, lng: -1.925, detail: "Forest edge"},
-                {name: "Roman Road Junction", lat: 52.468, lng: -1.888, detail: "Ryknild & Watling"},
                 {name: "Plague Pit", lat: 52.463, lng: -1.912, detail: "1350s burial"},
                 {name: "Hermit's Cell", lat: 52.488, lng: -1.865, detail: "Anchorite dwelling"},
                 {name: "Get of Fenris Den", lat: 52.525, lng: -1.875, detail: "Werewolf territory"},
